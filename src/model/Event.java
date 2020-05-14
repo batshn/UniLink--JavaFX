@@ -4,16 +4,17 @@ package model;
 import model.exception.InvalidOfferPriceException;
 import model.exception.InvalidUserReply;
 import model.exception.PostCloseException;
+import java.time.LocalDate;
 
 public class Event extends Post {
     private String venue;
-    private String date;
+    private LocalDate date;
     private int capacity;
     private int attendeeCount;
     public static int idGen=0;
 
 
-    public Event(String title, String description, String creatorID, String image, String venue, String date, int capacity) {
+    public Event(String title, String description, String creatorID, String image, String venue, LocalDate date, int capacity) {
         super("EVE"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
         this.venue = venue;
         this.date = date;
@@ -27,7 +28,7 @@ public class Event extends Post {
     }
 
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

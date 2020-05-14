@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import main.UniLinkGUI;
 import model.*;
 import model.exception.InvalidOfferPriceException;
 import model.exception.InvalidUserReply;
@@ -80,19 +81,23 @@ class PostListViewController extends ListCell<Post> {
                 btnReply.setText("Join");
                 setStyle("-fx-background-color: #BDBDBD");
                 lbCol1.setText(((Event) item).getVenue());
-                lbCol2.setText(((Event) item).getDate());
+                lbCol2.setText(((Event) item).getDate().toString());
                 lbCol3.setText(String.valueOf(((Event) item).getCapacity()));
                 lbCol4.setText(String.valueOf(((Event) item).getAttendeeCount()));
             } else if (item instanceof Sale) {
                 setStyle("-fx-background-color: #00BCD4");
                 lbCol1.setText(String.valueOf(((Sale) item).getHighestOffer()));
                 lbCol2.setText(String.valueOf(((Sale) item).getMinRaise()));
-                lbCol3.setText(String.valueOf(((Sale) item).getAskPrice()));
+                if(item.getCreatorID().compareTo(UniLinkGUI.loggedUserID) == 0)
+                        lbCol3.setText(String.valueOf(((Sale) item).getAskPrice()));
             } else {
                 setStyle("-fx-background-color: #757575");
                 lbCol1.setText(String.valueOf(((Job) item).getProposedPrice()));
                 lbCol2.setText(String.valueOf(((Job) item).getLowestOffer()));
             }
+
+            if(item.getCreatorID().compareTo(UniLinkGUI.loggedUserID) != 0)
+                btnMore.setVisible(false);
 
             setGraphic(gp);
         }
@@ -103,7 +108,7 @@ class PostListViewController extends ListCell<Post> {
         double offer = 0;
         try {
             if(post instanceof Event) {
-                Reply rp = new Reply(post.getId(),0, "S2");
+                Reply rp = new Reply(post.getId(),0, UniLinkGUI.loggedUserID);
                 post.handleReply(rp);
                 lbCol4.setText(String.valueOf(((Event) post).getAttendeeCount()));
                 alert = new Alert(Alert.AlertType.INFORMATION, "Congs! You have been successfully joined.");
@@ -114,7 +119,7 @@ class PostListViewController extends ListCell<Post> {
                 Optional<String> result = alert.showAndWait();
                 if (result.isPresent() && result.get().isEmpty() == false && CheckInput.isDouble(result.get())) {
                     offer =Double.parseDouble(result.get());
-                    Reply rp = new Reply(post.getId(), offer, "S2");
+                    Reply rp = new Reply(post.getId(), offer, UniLinkGUI.loggedUserID);
                     post.handleReply(rp);
                     if(post instanceof Job)
                         lbCol2.setText(String.valueOf(((Job) post).getLowestOffer()));

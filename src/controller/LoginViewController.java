@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import main.UniLinkGUI;
 
 import java.io.IOException;
 
@@ -33,6 +34,7 @@ public class LoginViewController {
             Scene mainVieScene = new Scene(mainViewParent);
             MainViewController controller=loader.getController();
             controller.initData(txtUserName.getText());
+            UniLinkGUI.loggedUserID = txtUserName.getText();
 
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             window.setScene(mainVieScene);

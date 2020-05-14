@@ -81,7 +81,7 @@ public abstract class Post {
 
     public void addReplyToPost(Reply rp) throws PostCloseException, InvalidUserReply {
         boolean canRespond = true;
-        if (rp.getResponderID() == this.creatorID) {
+        if (rp.getResponderID().compareTo(this.creatorID) == 0) {
             throw new InvalidUserReply("Post creator cannot reply own post!");
         }
         else if (this.status == Status.CLOSED) {

@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -31,6 +32,7 @@ public class MainViewController {
 
 
         loadPost();
+        loggedUserID.setText(UniLinkGUI.loggedUserID);
 
         //cbPostType.getValue().toString();
         cbPostType.getItems().addAll("All","Event","Sale","Job");
@@ -56,6 +58,7 @@ public class MainViewController {
         window.setScene(mainVieScene);
         window.centerOnScreen();
         window.show();
+
     }
 
 
@@ -64,13 +67,39 @@ public class MainViewController {
 
         lvPostList.setItems(UniLinkGUI.postList);
         lvPostList.setCellFactory(new Callback<ListView<Post>, ListCell<Post>>() {
-         @Override
-         public ListCell<Post> call(ListView<Post> param) {
-             return new PostListViewController();
-         }
-     });
-
+             @Override
+             public ListCell<Post> call(ListView<Post> param) {
+                 return new PostListViewController();
+             }
+        });
 
     }
 
+    public void addNewEvent(ActionEvent event) throws IOException {
+        callEvent(event,"event_view","event");
+    }
+
+    public void addNewSale(ActionEvent actionEvent) throws IOException{
+       callEvent(actionEvent,"sale_view","sale");
+    }
+
+    private void callEvent(ActionEvent event, String viewName, String ptType) throws IOException {
+        FXMLLoader loader =new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/"+viewName+".fxml"));
+        Parent mainViewParent = loader.load();
+
+        Scene mainVieScene = new Scene(mainViewParent);
+        if (ptType.compareTo("event")>0) {
+            SaleViewController controller = loader.getController();
+            controller.initData(ptType);
+        }
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(mainVieScene);
+        window.centerOnScreen();
+        window.show();
+    }
+
+    public void addNewJob(ActionEvent actionEvent) throws IOException {
+        callEvent(actionEvent,"sale_view","job");
+    }
 }

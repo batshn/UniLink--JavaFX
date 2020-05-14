@@ -40,9 +40,9 @@
                   </MenuBar>
                   <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
-                        <Button mnemonicParsing="false" text="NEW EVENT POST" />
-                        <Button mnemonicParsing="false" text="NEW SALE POST" />
-                        <Button mnemonicParsing="false" text="NEW JOB POST" />
+                        <Button mnemonicParsing="false" onAction="#addNewEvent" text="NEW EVENT POST" />
+                        <Button fx:id="btnNewSale" mnemonicParsing="false" onAction="#addNewSale" text="NEW SALE POST" />
+                        <Button fx:id="btnJob" mnemonicParsing="false" onAction="#addNewJob" text="NEW JOB POST" />
                         <Label text="Type:" />
                         <ChoiceBox fx:id="cbPostType" prefWidth="150.0" />
                         <Label text="Status:" />
