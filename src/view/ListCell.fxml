@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="gridPane" hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+    <columnConstraints>
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="30.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="50.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="80.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label fx:id="lbPostID" />
+        <Label fx:id="lbTitle" GridPane.columnIndex="1" />
+        <Label fx:id="lbDescription" GridPane.columnIndex="2" />
+        <Label fx:id="lbCreatorID" GridPane.columnIndex="3" />
+        <Label fx:id="lbStatus" GridPane.columnIndex="4" />
+        <Label fx:id="lbCol1" GridPane.columnIndex="5" />
+        <Label fx:id="lbCol2" GridPane.columnIndex="6" />
+        <Label fx:id="lbCol3" GridPane.columnIndex="7" />
+        <Label fx:id="lbCol4" GridPane.columnIndex="8" />
+        <Button fx:id="btnReply" mnemonicParsing="false"  text="Reply" GridPane.columnIndex="9" />
+        <Button fx:id="btnDetail" mnemonicParsing="false" text="More Details" GridPane.columnIndex="10" />
+       
+    </children>
+</GridPane>

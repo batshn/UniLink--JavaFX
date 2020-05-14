@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+   <children>
+      <BorderPane layoutX="97.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="UniLink">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Developer Information" />
+                              <MenuItem mnemonicParsing="false" text="Quit UniLink" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Data">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Export" />
+                              <MenuItem mnemonicParsing="false" text="Import" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button mnemonicParsing="false" text="NEW EVENT POST" />
+                        <Button mnemonicParsing="false" text="NEW SALE POST" />
+                        <Button mnemonicParsing="false" text="NEW JOB POST" />
+                        <Label text="Type:" />
+                        <ChoiceBox fx:id="cbPostType" prefWidth="150.0" />
+                        <Label text="Status:" />
+                        <ChoiceBox fx:id="cbStatus" prefWidth="150.0" />
+                        <Label text="Creator:" />
+                        <ChoiceBox fx:id="cbCreator" prefWidth="150.0" />
+                    </items>
+                  </ToolBar>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </top>
+         <center>
+            <SplitPane dividerPositions="0.06439393939393939" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <Label fx:id="loggedUserID" layoutX="452.0" layoutY="7.0" text="UserName" />
+                        <Label fx:id="lbLogOutFromMain" layoutX="925.0" layoutY="9.0" onMouseClicked="#loggedOut" text="LOG OUT">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="lvPostList" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,32 @@
+
+
+* {
+dark-primary-color : #E64A19;
+default-primary-color: #FF5722;
+light-primary-color : #FFCCBC;
+text-primary-color  : #FFFFFF;
+accent-color : #00BCD4;
+primary-text-color : #212121;
+secondary-text-color: #757575;
+divider-color : #BDBDBD;
+
+}
+
+.root{
+ -fx-background-color:default-primary-color;
+}
+
+.toolbar {
+ -fx-background-color: dark-primary-color;
+}
+
+.loginPanel{
+    -fx-background-color: text-primary-color;
+}
+
+.txtLight {
+    -fx-text-fill: text-primary-color;
+}
+
+
+
