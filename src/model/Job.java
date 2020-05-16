@@ -14,7 +14,7 @@ public class Job extends Post{
     public static int idGen=0;
 
 
-    public Job(String title, String description, String creatorID, String image, double proposedPrice) {
+    public Job(String title, String description, String creatorID, double proposedPrice, String image) {
         super("JOB"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
         this.proposedPrice = proposedPrice;
         this.lowestOffer = 0;
@@ -24,11 +24,11 @@ public class Job extends Post{
     public double getProposedPrice() {
         return proposedPrice;
     }
-
-
     public double getLowestOffer() {
         return lowestOffer;
     }
+
+    public void setProposedPrice(double upProposedPrice){ this.proposedPrice = upProposedPrice;}
 
 
     @Override

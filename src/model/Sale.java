@@ -13,7 +13,7 @@ public class Sale extends Post {
     public static int idGen=0;
 
 
-    public Sale(String title, String description, String creatorID, String image, double askPrice, int minRaise) {
+    public Sale(String title, String description, String creatorID, double askPrice, int minRaise, String image) {
         super("SAL"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
         this.askPrice = askPrice;
         this.minRaise = minRaise;
@@ -24,16 +24,15 @@ public class Sale extends Post {
     public double getAskPrice() {
         return askPrice;
     }
-
-
     public double getHighestOffer() {
         return highestOffer;
     }
-
-
     public int getMinRaise() {
         return minRaise;
     }
+
+    public void setAskPrice(double upAskPrice){ this.askPrice = upAskPrice;}
+    public void setMinRaise(int upMinRaise){ this.minRaise = upMinRaise;}
 
 
     @Override

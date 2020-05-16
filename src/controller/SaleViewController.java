@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,10 @@ import model.Job;
 import model.Post;
 import model.Sale;
 import model.asset.CheckInput;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class SaleViewController {
@@ -28,6 +32,7 @@ public class SaleViewController {
     @FXML private Label lbAskingPrice;
     @FXML private Label lbMinimumRaise;
     @FXML private ImageView imgPost;
+    @FXML private Label lbTITLE;
     private String postType;
 
     public void initData(String pt){
@@ -36,19 +41,44 @@ public class SaleViewController {
             lbAskingPrice.setText("Proposed price: ");
             lbMinimumRaise.setVisible(false);
             txtMinimumRaise.setVisible(false);
+            lbTITLE.setText("THE JOB DETAILS");
         }
     }
 
     public void addSale(ActionEvent actionEvent) throws IOException {
-        if (txtTitle.getText().isBlank() != true && CheckInput.isDouble(txtAskingPrice.getText())) {
-            if ((postType.compareTo("sale") == 0 && CheckInput.isInt(txtMinimumRaise.getText())) || postType.compareTo("job") == 0) {
+        String val = "yes";
+        if (((postType.compareTo("sale") == 0) && (CheckInput.isInt(txtMinimumRaise.getText()) != true)))
+            val = "Minimum Raise";
+        if (CheckInput.isDouble(txtAskingPrice.getText()) == false) {
+            val = "Asking Price";
+            if (postType.compareTo("job") == 0)
+                val = "Proposed Price";
+        }
+        if (txtDesc.getText().isBlank() == true)
+            val = "Description";
+        if (txtTitle.getText().isBlank() == true)
+            val = "Title";
+
+        if (val.compareTo("yes") == 0) {
+                String img="0";
+                BufferedImage postImg ;
+                if(imgPost.getImage() != null)
+                    img = "1";
+
                 if (postType.compareTo("sale") == 0) {
-                    Post sal = new Sale(txtTitle.getText(), txtDesc.getText(), UniLinkGUI.loggedUserID, "noimage", Double.parseDouble(txtAskingPrice.getText()), Integer.parseInt(txtMinimumRaise.getText()));
+                    Post sal = new Sale(txtTitle.getText(), txtDesc.getText(), UniLinkGUI.loggedUserID, Double.parseDouble(txtAskingPrice.getText()), Integer.parseInt(txtMinimumRaise.getText()), img);
                     UniLinkGUI.postList.add(sal);
+                    img = sal.getImage();
                 }
                 else {
-                    Post job = new Job(txtTitle.getText(), txtDesc.getText(), UniLinkGUI.loggedUserID, "noimage", Double.parseDouble(txtAskingPrice.getText()));
+                    Post job = new Job(txtTitle.getText(), txtDesc.getText(), UniLinkGUI.loggedUserID, Double.parseDouble(txtAskingPrice.getText()), img);
                     UniLinkGUI.postList.add(job);
+                    img = job.getImage();
+                }
+
+                if(imgPost.getImage() != null) {
+                    postImg = SwingFXUtils.fromFXImage(imgPost.getImage(), null);
+                    ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\src\\image\\"+img+".png"));
                 }
 
                 FXMLLoader loader = new FXMLLoader();
@@ -62,14 +92,11 @@ public class SaleViewController {
                 window.show();
             }
             else {
-                Dialog alert = new Alert(Alert.AlertType.WARNING, "YOU MUST INPUT ALL INFORMATION CORRECTLY! ");
-                alert.showAndWait();
+                Dialog message = new Alert(Alert.AlertType.WARNING);
+                message.setTitle("WARNING");
+                message.setHeaderText("Please enter proper " + val );
+                message.showAndWait();
             }
-        }
-        else {
-            Dialog alert = new Alert(Alert.AlertType.WARNING, "YOU MUST INPUT ALL INFORMATION CORRECTLY! ");
-            alert.showAndWait();
-        }
     }
 
     public void backToMainWindow(ActionEvent actionEvent) throws IOException {
@@ -93,19 +120,6 @@ public class SaleViewController {
         File selectImage = fc.showOpenDialog(null);
 
         if(selectImage != null) {
-
-            FileInputStream in = new FileInputStream(selectImage);
-            FileOutputStream ou = new FileOutputStream("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\src\\image\\CUS002.png");
-            BufferedInputStream bin = new BufferedInputStream(in);
-            BufferedOutputStream bou = new BufferedOutputStream(ou);
-            int b = 0;
-            while (b != -1) {
-                b = bin.read();
-                bou.write(b);
-            }
-            bin.close();
-            bou.close();
-
             Image img = new Image(selectImage.toURI().toString());
             imgPost.setImage(img);
         }

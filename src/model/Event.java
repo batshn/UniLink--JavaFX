@@ -5,6 +5,7 @@ import model.exception.InvalidOfferPriceException;
 import model.exception.InvalidUserReply;
 import model.exception.PostCloseException;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Event extends Post {
     private String venue;
@@ -14,7 +15,7 @@ public class Event extends Post {
     public static int idGen=0;
 
 
-    public Event(String title, String description, String creatorID, String image, String venue, LocalDate date, int capacity) {
+    public Event(String title, String description, String creatorID, String venue, LocalDate date, int capacity, String image) {
         super("EVE"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
         this.venue = venue;
         this.date = date;
@@ -26,21 +27,19 @@ public class Event extends Post {
     public String getVenue() {
         return venue;
     }
-
-
     public LocalDate getDate() {
         return date;
     }
-
-
     public int getCapacity( ) {
         return capacity;
     }
-
-
     public int getAttendeeCount( ) {
         return attendeeCount;
     }
+
+    public void setVenue(String upVenue) { this.venue = upVenue;}
+    public void setCapacity(int upCapacity) { this.capacity = upCapacity;}
+    public void setDate(LocalDate upDate) { this.date = upDate;}
 
 
     @Override

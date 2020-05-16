@@ -26,8 +26,8 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="UniLink">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Developer Information" />
-                              <MenuItem mnemonicParsing="false" text="Quit UniLink" />
+                          <MenuItem mnemonicParsing="false" onAction="#openDeveloperWindow" text="Developer Information" />
+                              <MenuItem mnemonicParsing="false" onAction="#onExit" text="Quit UniLink" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Data">

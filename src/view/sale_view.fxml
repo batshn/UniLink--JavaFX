@@ -40,7 +40,7 @@
       <Button fx:id="btnBrowseImage" layoutX="35.0" layoutY="194.0" mnemonicParsing="false" onAction="#copyImage" prefHeight="25.0" prefWidth="147.0" text="Browse" />
       <Button fx:id="btnSave" layoutX="415.0" layoutY="219.0" mnemonicParsing="false" onAction="#addSale" prefHeight="33.0" prefWidth="147.0" text="Save" />
       <Line endX="488.0" layoutX="104.0" layoutY="33.0" startX="-100.0" />
-      <Label fx:id="lbTITLE" layoutX="239.0" layoutY="3.0" text="THE POST DETAILS">
+      <Label fx:id="lbTITLE" layoutX="239.0" layoutY="3.0" text="THE SALE DETAILS">
          <font>
             <Font size="17.0" />
          </font>

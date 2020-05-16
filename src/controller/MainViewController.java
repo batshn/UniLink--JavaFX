@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.application.Platform;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.UniLinkGUI;
-import model.Post;
+import model.*;
 
 
 import java.io.IOException;
@@ -30,16 +32,18 @@ public class MainViewController {
 
     public void initialize() {
 
+        loggedUserID.setText(UniLinkGUI.loggedUserID);
+        cbPostType.getItems().addAll("All","Event","Sale","Job");
+        cbPostType.setValue("All");
+        cbStatus.getItems().addAll("All","Open","Closed");
+        cbStatus.setValue("All");
+        cbCreator.getItems().addAll("All","My Posts");
+        cbCreator.setValue("All");
 
         loadPost();
-        loggedUserID.setText(UniLinkGUI.loggedUserID);
-
-        //cbPostType.getValue().toString();
-        cbPostType.getItems().addAll("All","Event","Sale","Job");
-        cbStatus.getItems().addAll("All","Open","Closed");
-        cbCreator.getItems().addAll("My Posts","All");
-
-
+        cbPostType.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> loadPost());
+        cbStatus.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> loadPost());
+        cbCreator.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> loadPost());
     }
 
 
@@ -62,10 +66,89 @@ public class MainViewController {
     }
 
 
- //   public ObservableList<Post> getPost() {
- public void loadPost() {
+    public void loadPost() {
 
-        lvPostList.setItems(UniLinkGUI.postList);
+      // lvPostList.getItems().clear();
+        FilteredList<Post> filteredPost = new FilteredList<>(UniLinkGUI.postList, s -> true);
+      //  filteredPost.setPredicate(s -> true);
+
+            switch (cbPostType.getValue().toString()) {
+                case "Event": {
+                    if (cbStatus.getValue().toString().equals("All") == false) {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s instanceof Event && s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()) && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s instanceof Event && s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()));
+                    }
+                    else {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s instanceof Event && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s instanceof Event);
+                    }
+                } break;
+                case "Sale": {
+                    if (cbStatus.getValue().toString().equals("All") == false) {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s instanceof Sale && s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()) && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s instanceof Sale && s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()));
+                    }
+                    else {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s instanceof Sale && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s instanceof Sale);
+                    }
+                } break;
+                case "Job": {
+                    if (cbStatus.getValue().toString().equals("All") == false) {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s instanceof Job && s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()) && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s instanceof Job && s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()));
+                    }
+                    else {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s instanceof Job && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s instanceof Job);
+                    }
+                } break;
+                default: {
+                    if (cbStatus.getValue().toString().equals("All") == false) {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()) && s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                        else
+                            filteredPost.setPredicate(s -> s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()));
+                    }
+                    else {
+                        if (cbCreator.getValue().toString().equals("All") == false)
+                            filteredPost.setPredicate(s -> s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+                    }
+                } break;
+            }
+     //   }
+
+
+        //if(cbPostType)
+     /*   if (cbPostType.getValue().toString().equals("Event"))
+           filteredPost.setPredicate(s -> s instanceof Event);
+        else if (cbPostType.getValue().toString().equals("Sale"))
+                 filteredPost.setPredicate(s -> s instanceof Sale);
+             else if (cbPostType.getValue().toString().equals("Job"))
+                 filteredPost.setPredicate(s -> s instanceof Job);
+
+
+        // filter by Status
+        if (cbStatus.getValue().toString().equals("All") == false)
+            filteredPost.setPredicate(s -> s.getStatus().toString().equals(cbStatus.getValue().toString().toUpperCase()));
+
+        // filter by Creator
+        if (cbCreator.getValue().toString().equals("All") == false)
+            filteredPost.setPredicate(s -> s.getCreatorID().equals(UniLinkGUI.loggedUserID));
+*/
+        lvPostList.setItems(filteredPost);
         lvPostList.setCellFactory(new Callback<ListView<Post>, ListCell<Post>>() {
              @Override
              public ListCell<Post> call(ListView<Post> param) {
@@ -79,9 +162,11 @@ public class MainViewController {
         callEvent(event,"event_view","event");
     }
 
+
     public void addNewSale(ActionEvent actionEvent) throws IOException{
        callEvent(actionEvent,"sale_view","sale");
     }
+
 
     private void callEvent(ActionEvent event, String viewName, String ptType) throws IOException {
         FXMLLoader loader =new FXMLLoader();
@@ -99,7 +184,21 @@ public class MainViewController {
         window.show();
     }
 
+
     public void addNewJob(ActionEvent actionEvent) throws IOException {
         callEvent(actionEvent,"sale_view","job");
+    }
+
+    public void openDeveloperWindow(ActionEvent actionEvent) {
+        Dialog message = new Dialog();
+        message.setTitle("Developer Information");
+        message.setHeaderText("   BATSAIKHAN DASHDORJ   s3799204");
+        ButtonType buttonTypeOk = new ButtonType("Close", ButtonBar.ButtonData.OK_DONE);
+        message.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        message.showAndWait();
+    }
+
+    public void onExit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

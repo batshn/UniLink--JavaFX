@@ -23,7 +23,10 @@ public abstract class Post {
         this.description = description;
         this.creatorID = creatorID;
         status = Status.OPEN;
-        this.image = image;
+        if(image.compareTo("0")==0)
+            this.image = "noimage";
+        else
+            this.image = id;
         replyList = new ArrayList<Reply>();
     }
 
@@ -31,29 +34,30 @@ public abstract class Post {
     public String getId() {
         return id;
     }
-
-
     public String getTitle() {
         return title;
     }
-
-
     public String getDescription() {
         return description;
     }
-
-
     public String getCreatorID() {
         return creatorID;
     }
-
-
     public Status getStatus() {
         return status;
     }
+    public String getImage() {
+        return image;
+    }
 
-    public void setTitle() {
-        title = "new Title";
+    public void setTitle(String upTitle) {
+        this.title = upTitle;
+    }
+    public void setDescription(String upDesc) {
+        this.description = upDesc;
+    }
+    public void setImage(String upImage) {
+        this.image = upImage;
     }
 
 
@@ -61,7 +65,7 @@ public abstract class Post {
         if(status == Status.OPEN)
             status = Status.CLOSED;
         else
-            throw new PostCloseException("Post is closed");
+            throw new PostCloseException("Post is already closed!");
     }
 
 
