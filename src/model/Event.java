@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Event extends Post {
+    private static final long serialVersionUID = -1377514519266607573L;
     private String venue;
     private LocalDate date;
     private int capacity;
@@ -16,11 +17,21 @@ public class Event extends Post {
 
 
     public Event(String title, String description, String creatorID, String venue, LocalDate date, int capacity, String image) {
-        super("EVE"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
+        super("EVE"+ String.format("%03d" , ++idGen), title, description, creatorID, Status.OPEN, image);
         this.venue = venue;
         this.date = date;
         this.capacity = capacity;
         attendeeCount = 0;
+    }
+
+    // constructor from file or db
+    public Event(String id, String title, String description, String creatorID, Status status ,String venue, LocalDate date, int capacity, int attendCnt ,String image) {
+        super(id, title, description, creatorID, status, image);
+        this.venue = venue;
+        this.date = date;
+        this.capacity = capacity;
+        attendeeCount = attendCnt;
+        ++idGen;
     }
 
 
@@ -40,6 +51,7 @@ public class Event extends Post {
     public void setVenue(String upVenue) { this.venue = upVenue;}
     public void setCapacity(int upCapacity) { this.capacity = upCapacity;}
     public void setDate(LocalDate upDate) { this.date = upDate;}
+    public void setAttendeeCount(int attCnt){ this.attendeeCount = attCnt; }
 
 
     @Override

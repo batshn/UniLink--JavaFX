@@ -37,7 +37,7 @@ class PostListViewController extends ListCell<Post> {
     Label lbCol4 = new Label();
     Button btnReply = new Button("Reply");
     Button btnMore = new Button("More Details");
-    Image imgPost = new Image("/image/noimage.png");
+    Image imgPost = new Image("file:images/noimage.png");
     ImageView img = new ImageView(imgPost);
     Post lastItem;
 
@@ -126,7 +126,7 @@ class PostListViewController extends ListCell<Post> {
                 btnMore.setVisible(false);
 
             if (item.getImage().compareTo("noimage") != 0) {
-                img.setImage(new Image(getClass().getResourceAsStream("/image/" + item.getImage() + ".png")));
+                img.setImage(new Image("file:images/" + item.getImage() + ".png"));
             }
 
             img.setFitHeight(40);

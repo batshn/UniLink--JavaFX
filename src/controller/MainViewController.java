@@ -14,13 +14,16 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.UniLinkGUI;
 import model.*;
+import database.*;
 
 
-import java.io.IOException;
+import java.io.*;
 
 
 public class MainViewController {
 
+    private static String FILE_NAME = "export_data.txt";
+  //  private static String FILE_CUSTOMER_NAME = "customers.txt";
 
     @FXML private ListView<Post> lvPostList;
 
@@ -199,6 +202,69 @@ public class MainViewController {
     }
 
     public void onExit(ActionEvent actionEvent) {
+        WriteData.insertData();
         Platform.exit();
+    }
+
+    public void exportToFile(ActionEvent actionEvent) {
+        try {
+            FileOutputStream f = new FileOutputStream(new File(FILE_NAME));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+            for (Post post :  UniLinkGUI.postList) {
+                // Write customer object to file
+                o.writeObject(post);
+            }
+
+            // Close streams
+            o.close();
+            f.close();
+
+            System.out.print("\n *** All posts have been written to file ***");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("\nCustomer ERROR: File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+           // System.out.println("\nPost ERROR: initializing stream");
+        }
+
+    }
+
+    public void readFromFile(ActionEvent actionEvent) {
+        try
+        {
+            // Create input streams for post's file
+            FileInputStream fi = new FileInputStream(new File(FILE_NAME));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Loop until the file ends
+            while (true) {
+                // Read customers from file
+                try {
+                    // Read each customer from a line
+                    Post post = (Post) oi.readObject();
+
+                    // Add post to the post's list
+                    UniLinkGUI.postList.add(post);
+
+                } catch (EOFException eof) {
+                    // End loop when the file reaches its end
+                    break;
+                }
+            }
+
+            // Close streams
+            oi.close();
+            fi.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            System.out.println("An error has occurred " + e.getMessage());
+        }
+
     }
 }

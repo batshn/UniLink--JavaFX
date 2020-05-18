@@ -4,10 +4,13 @@ import model.exception.InvalidOfferPriceException;
 import model.exception.InvalidUserReply;
 import model.exception.PostCloseException;
 
+import java.io.Serializable;
 import java.util.*;
 import java.lang.String;
 
-public abstract class Post {
+public abstract class Post implements Serializable {
+    private static final long serialVersionUID = -5691819770409351189L;
+
     private String id;
     private String title;
     private String description;
@@ -17,18 +20,20 @@ public abstract class Post {
     private ArrayList<Reply> replyList;
 
 
-    public Post(String id, String title, String description, String creatorID, String image) {
+    public Post(String id, String title, String description, String creatorID, Status status ,String image) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.creatorID = creatorID;
-        status = Status.OPEN;
-        if(image.compareTo("0")==0)
-            this.image = "noimage";
+        this.status = status;
+        if(image.compareTo("noimage") == 0)
+            this.image = image;
         else
             this.image = id;
         replyList = new ArrayList<Reply>();
     }
+
+
 
 
     public String getId() {
@@ -104,6 +109,11 @@ public abstract class Post {
                 throw new InvalidUserReply("You have already replied this post!");
         }
 
+    }
+
+    // reply from db or file
+    public void addReplyToPostFromDbOrFile(Reply rp) {
+        this.replyList.add(rp);
     }
 
 }

@@ -56,7 +56,7 @@ public class EventDetailsViewController {
         }
 
         if (updatePost.getImage().compareTo("noimage") != 0)
-           imageEvent.setImage(new Image("/image/"+updatePost.getImage()+".png"));
+            imageEvent.setImage(new Image("file:images/" + updatePost.getImage() + ".png"));
 
         if(post.getStatus() == Status.CLOSED || post.getReplyList().isEmpty() == false) {
             txtTitle.setEditable(false);

@@ -9,15 +9,24 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Job extends Post{
+    private static final long serialVersionUID = -6170108674083551442L;
     private double proposedPrice;
     private double lowestOffer;
     public static int idGen=0;
 
 
     public Job(String title, String description, String creatorID, double proposedPrice, String image) {
-        super("JOB"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
+        super("JOB"+ String.format("%03d" , ++idGen), title, description, creatorID, Status.OPEN, image);
         this.proposedPrice = proposedPrice;
         this.lowestOffer = 0;
+    }
+
+    // constructor from db or file
+    public Job(String id, String title, String description, String creatorID, Status status, double proposedPrice, double lowestOffer, String image) {
+        super(id, title, description, creatorID, status, image);
+        this.proposedPrice = proposedPrice;
+        this.lowestOffer = lowestOffer;
+        ++idGen;
     }
 
 
@@ -29,6 +38,7 @@ public class Job extends Post{
     }
 
     public void setProposedPrice(double upProposedPrice){ this.proposedPrice = upProposedPrice;}
+    public void setLowestOffer(double upLowestOffer){ this.lowestOffer = upLowestOffer;}
 
 
     @Override

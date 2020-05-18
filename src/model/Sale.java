@@ -7,6 +7,7 @@ import model.exception.PostCloseException;
 import java.util.*;
 
 public class Sale extends Post {
+    private static final long serialVersionUID = -8126848360600802908L;
     private double askPrice;
     private double highestOffer;
     private int minRaise;
@@ -14,10 +15,19 @@ public class Sale extends Post {
 
 
     public Sale(String title, String description, String creatorID, double askPrice, int minRaise, String image) {
-        super("SAL"+ String.format("%03d" , ++idGen), title, description, creatorID, image);
+        super("SAL"+ String.format("%03d" , ++idGen), title, description, creatorID, Status.OPEN, image);
         this.askPrice = askPrice;
         this.minRaise = minRaise;
         highestOffer = 0;
+    }
+
+    // constructor from db or file
+    public Sale(String id, String title, String description, String creatorID, Status status ,double askPrice, int minRaise, double highestOffer ,String image) {
+        super(id, title, description, creatorID, status ,image);
+        this.askPrice = askPrice;
+        this.minRaise = minRaise;
+        this.highestOffer = highestOffer;
+        ++idGen;
     }
 
 
@@ -33,6 +43,7 @@ public class Sale extends Post {
 
     public void setAskPrice(double upAskPrice){ this.askPrice = upAskPrice;}
     public void setMinRaise(int upMinRaise){ this.minRaise = upMinRaise;}
+    public void setHighOffer(double upHighOffer){ this.highestOffer = upHighOffer;}
 
 
     @Override

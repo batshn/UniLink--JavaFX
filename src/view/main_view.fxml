@@ -32,8 +32,8 @@
                       </Menu>
                       <Menu mnemonicParsing="false" text="Data">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Export" />
-                              <MenuItem mnemonicParsing="false" text="Import" />
+                          <MenuItem fx:id="mnExport" mnemonicParsing="false" onAction="#exportToFile" text="Export" />
+                              <MenuItem fx:id="mnImport" mnemonicParsing="false" onAction="#readFromFile" text="Import" />
                         </items>
                       </Menu>
                     </menus>

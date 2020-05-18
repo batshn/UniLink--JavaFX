@@ -1,17 +1,16 @@
 package controller;
 
+import database.WriteData;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import main.UniLinkGUI;
 
 import java.io.IOException;
@@ -22,6 +21,7 @@ public class LoginViewController {
     @FXML private Label lbMessage;
 
     public void handleClose(MouseEvent mouseEvent) {
+        WriteData.insertData();
         System.exit(0);
     }
 

@@ -60,10 +60,10 @@ public class SaleViewController {
             val = "Title";
 
         if (val.compareTo("yes") == 0) {
-                String img="0";
+                String img="noimage";
                 BufferedImage postImg ;
                 if(imgPost.getImage() != null)
-                    img = "1";
+                    img = "yes";
 
                 if (postType.compareTo("sale") == 0) {
                     Post sal = new Sale(txtTitle.getText(), txtDesc.getText(), UniLinkGUI.loggedUserID, Double.parseDouble(txtAskingPrice.getText()), Integer.parseInt(txtMinimumRaise.getText()), img);
@@ -78,7 +78,7 @@ public class SaleViewController {
 
                 if(imgPost.getImage() != null) {
                     postImg = SwingFXUtils.fromFXImage(imgPost.getImage(), null);
-                    ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\src\\image\\"+img+".png"));
+                    ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\images\\"+img+".png"));
                 }
 
                 FXMLLoader loader = new FXMLLoader();

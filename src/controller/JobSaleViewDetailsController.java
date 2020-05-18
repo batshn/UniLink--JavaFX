@@ -58,7 +58,7 @@ public class JobSaleViewDetailsController {
         }
 
         if (updatePost.getImage().compareTo("noimage") != 0)
-            imagePost.setImage(new Image("/image/"+updatePost.getImage()+".png"));
+            imagePost.setImage(new Image("file:images/" + updatePost.getImage() + ".png"));
 
         if(post.getStatus() == Status.CLOSED || post.getReplyList().isEmpty() == false) {
             txtTitle.setEditable(false);

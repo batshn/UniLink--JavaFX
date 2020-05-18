@@ -61,10 +61,10 @@ public class EventViewController {
             val = "Title";
 
         if (val.compareTo("yes") == 0) {
-            String img="0";
+            String img="noimage";
             BufferedImage postImg ;
             if(imgVenue.getImage() != null)
-                img = "1";
+                img = "yes";
 
             Post ev = new Event(txtTitle.getText(), txtDesc.getText(), UniLinkGUI.loggedUserID, txtVenue.getText(), dtEventDate.getValue(), Integer.parseInt(txtCapacity.getText()), img);
             UniLinkGUI.postList.add(ev);
@@ -72,7 +72,7 @@ public class EventViewController {
 
             if(imgVenue.getImage() != null) {
                 postImg = SwingFXUtils.fromFXImage(imgVenue.getImage(), null);
-                ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\src\\image\\"+img+".png"));
+                ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\images\\"+img+".png"));
             }
 
             FXMLLoader loader = new FXMLLoader();
