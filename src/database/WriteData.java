@@ -73,6 +73,7 @@ public class WriteData {
                             cntReply++;
                        }
                    }
+
                     System.out.println(String.valueOf(cntPost) +" posts and " + String.valueOf(cntReply) +" replies have been recorded.");
                 }
 

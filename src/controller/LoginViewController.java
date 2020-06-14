@@ -26,12 +26,12 @@ public class LoginViewController {
     }
 
     public void loggedIn(ActionEvent event) throws IOException {
-        if(txtUserName.getText().isEmpty() != true){
+        if(checkLogin() == true){
             FXMLLoader loader =new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/main_view.fxml"));
-            Parent mainViewParent = loader.load();
+            Parent mainViewParent = (Parent) loader.load();
 
-            Scene mainVieScene = new Scene(mainViewParent);
+            Scene mainVieScene = new Scene(mainViewParent, 1020, 650);
             MainViewController controller=loader.getController();
             controller.initData(txtUserName.getText());
             UniLinkGUI.loggedUserID = txtUserName.getText();
@@ -40,12 +40,24 @@ public class LoginViewController {
             window.setScene(mainVieScene);
             window.centerOnScreen();
             window.show();
+
         }
         else
             lbMessage.setText("THE USERNAME IS INCORRECT!");
     }
 
+
     public void initialize() {
         lbMessage.setText("");
+    }
+
+
+    private boolean checkLogin() {
+        boolean result = false;
+        if(txtUserName.getText().isEmpty() != true) {
+                if (UniLinkGUI.usersList.contains(txtUserName.getText()))
+                    result = true;
+        }
+        return result;
     }
 }

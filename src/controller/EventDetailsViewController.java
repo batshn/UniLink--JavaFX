@@ -2,6 +2,7 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +23,11 @@ import model.Status;
 import model.asset.CheckInput;
 import model.exception.PostCloseException;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 public class EventDetailsViewController {
@@ -46,6 +50,7 @@ public class EventDetailsViewController {
 
     public void initData(Post post){
         updatePost = post;
+        dtDate.setEditable(false);
         txtTitle.setText(updatePost.getTitle());
         txtDesc.setText(updatePost.getDescription());
         if (updatePost instanceof Event) {
@@ -63,10 +68,8 @@ public class EventDetailsViewController {
             txtDesc.setEditable(false);
             txtVenue.setEditable(false);
             txtCapacity.setEditable(false);
-            dtDate.setEditable(false);
+            dtDate.setDisable(false);
             btnSave.setDisable(true);
-            btnClose.setDisable(true);
-//            btnDelete.setDisable(true);
             btnUpload.setDisable(true);
         }
 
@@ -124,6 +127,10 @@ public class EventDetailsViewController {
         Optional<ButtonType> result = message.showAndWait();
         if((result.isPresent()) && (result.get() == ButtonType.OK)) {
             UniLinkGUI.postList.remove(updatePost);
+           /* if (!updatePost.getImage().equals("noimage")) {
+                File delFile = new File("images/" + updatePost.getImage() + ".png");
+                delFile.delete();
+            } */
             updatePost = null;
             backMainWindow(actionEvent);
         }
@@ -131,10 +138,13 @@ public class EventDetailsViewController {
     }
 
     public void savePost(ActionEvent actionEvent) throws IOException {
+
         String val = "yes";
         if (dtDate.getValue() == null)
             val = "Date";
         if (CheckInput.isInt(txtCapacity.getText()) == false)
+            val = "Capacity";
+        else if (Integer.parseInt(txtCapacity.getText())<=0)
             val = "Capacity";
         if (txtVenue.getText().isBlank() == true)
             val = "Venue";
@@ -149,10 +159,15 @@ public class EventDetailsViewController {
             ((Event) updatePost).setVenue(txtVenue.getText());
             ((Event) updatePost).setCapacity(Integer.parseInt(txtCapacity.getText()));
             ((Event) updatePost).setDate(dtDate.getValue());
-            if (imageEvent.getImage() != null)
+            if (imageEvent.getImage() != null) {
                 updatePost.setImage(updatePost.getId());
+                BufferedImage postImg ;
+                postImg = SwingFXUtils.fromFXImage(imageEvent.getImage(), null);
+                ImageIO.write(postImg, "png", new File(Paths.get("").toAbsolutePath().toString() + "\\images\\" + updatePost.getId() + ".png"));
+            }
             else
                 updatePost.setImage("noimage");
+
 
             backMainWindow(actionEvent);
         }

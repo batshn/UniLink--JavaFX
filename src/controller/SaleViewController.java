@@ -23,6 +23,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Paths;
 
 public class SaleViewController {
     @FXML private TextField txtTitle;
@@ -47,13 +48,23 @@ public class SaleViewController {
 
     public void addSale(ActionEvent actionEvent) throws IOException {
         String val = "yes";
-        if (((postType.compareTo("sale") == 0) && (CheckInput.isInt(txtMinimumRaise.getText()) != true)))
-            val = "Minimum Raise";
+        if (postType.compareTo("sale") == 0){
+            if(CheckInput.isInt(txtMinimumRaise.getText()) != true)
+                val = "Minimum Raise";
+            else if (Integer.parseInt(txtMinimumRaise.getText())<=0)
+                val = "Minimum Raise";
+        }
+
         if (CheckInput.isDouble(txtAskingPrice.getText()) == false) {
             val = "Asking Price";
             if (postType.compareTo("job") == 0)
                 val = "Proposed Price";
+        } else if (Double.parseDouble(txtAskingPrice.getText())<=0) {
+            val = "Asking Price";
+            if (postType.compareTo("job") == 0)
+                val = "Proposed Price";
         }
+
         if (txtDesc.getText().isBlank() == true)
             val = "Description";
         if (txtTitle.getText().isBlank() == true)
@@ -78,7 +89,7 @@ public class SaleViewController {
 
                 if(imgPost.getImage() != null) {
                     postImg = SwingFXUtils.fromFXImage(imgPost.getImage(), null);
-                    ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\images\\"+img+".png"));
+                    ImageIO.write(postImg, "png", new File(Paths.get("").toAbsolutePath().toString()+"\\images\\"+img+".png"));
                 }
 
                 FXMLLoader loader = new FXMLLoader();

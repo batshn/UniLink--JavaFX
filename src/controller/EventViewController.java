@@ -23,6 +23,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -34,6 +35,11 @@ public class EventViewController {
     @FXML private DatePicker dtEventDate;
     @FXML private TextField txtCapacity;
     @FXML private ImageView imgVenue;
+
+    public void initData(){
+        dtEventDate.setEditable(false);
+    }
+
 
     public void backToMainWindow(ActionEvent event) throws IOException {
         FXMLLoader loader =new FXMLLoader();
@@ -53,6 +59,8 @@ public class EventViewController {
             val = "Date";
         if (CheckInput.isInt(txtCapacity.getText()) == false)
             val = "Capacity";
+        else if (Integer.parseInt(txtCapacity.getText())<=0)
+            val = "Capacity";
         if (txtVenue.getText().isBlank() == true)
             val = "Venue";
         if (txtDesc.getText().isBlank() == true)
@@ -62,7 +70,7 @@ public class EventViewController {
 
         if (val.compareTo("yes") == 0) {
             String img="noimage";
-            BufferedImage postImg ;
+            BufferedImage postImg;
             if(imgVenue.getImage() != null)
                 img = "yes";
 
@@ -72,7 +80,7 @@ public class EventViewController {
 
             if(imgVenue.getImage() != null) {
                 postImg = SwingFXUtils.fromFXImage(imgVenue.getImage(), null);
-                ImageIO.write(postImg, "png", new File("F:\\Lesson\\RMIT\\Semester1-2020\\Advanced Programming\\SourceGUI\\images\\"+img+".png"));
+                ImageIO.write(postImg, "png", new File(Paths.get("").toAbsolutePath().toString()+"\\images\\"+img+".png"));
             }
 
             FXMLLoader loader = new FXMLLoader();

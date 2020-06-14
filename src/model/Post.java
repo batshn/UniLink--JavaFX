@@ -26,14 +26,14 @@ public abstract class Post implements Serializable {
         this.description = description;
         this.creatorID = creatorID;
         this.status = status;
-        if(image.compareTo("noimage") == 0)
-            this.image = image;
-        else
+        if(image.compareTo("yes") == 0)
             this.image = id;
+        else
+            this.image = image;
+
+
         replyList = new ArrayList<Reply>();
     }
-
-
 
 
     public String getId() {
@@ -55,6 +55,7 @@ public abstract class Post implements Serializable {
         return image;
     }
 
+    public void setID(String upID) { this.id = upID;}
     public void setTitle(String upTitle) {
         this.title = upTitle;
     }

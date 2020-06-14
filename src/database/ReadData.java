@@ -68,9 +68,10 @@ public class ReadData {
     }
 
     public static double readReply(Post post, Statement stdet) throws SQLException {
-        double result = 0, maxValue = 0, minValue = 0 ;
+        double result = 0, maxValue = 0, minValue = 0 , attCnt = 0;
        ResultSet replyRows = stdet.executeQuery("SELECT * FROM " +TABLE_REPLY+ " WHERE post_id = '" +post.getId()+ "';");
         while (replyRows.next()) {
+            ++attCnt;
             Reply rp = new Reply(replyRows.getString("post_id"), replyRows.getDouble("amount"), replyRows.getString("responder_id"));
             post.addReplyToPostFromDbOrFile(rp);
 
@@ -81,8 +82,9 @@ public class ReadData {
                 minValue =  replyRows.getDouble("amount");
         }
 
+
         if(post instanceof Event)
-            result = replyRows.getRow();
+            result = attCnt;
         else if( post instanceof Sale)
             result = maxValue;
         else

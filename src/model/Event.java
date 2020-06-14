@@ -48,6 +48,7 @@ public class Event extends Post {
         return attendeeCount;
     }
 
+
     public void setVenue(String upVenue) { this.venue = upVenue;}
     public void setCapacity(int upCapacity) { this.capacity = upCapacity;}
     public void setDate(LocalDate upDate) { this.date = upDate;}

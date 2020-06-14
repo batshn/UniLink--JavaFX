@@ -14,14 +14,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="296.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EventViewController">
+<AnchorPane prefHeight="311.0" prefWidth="623.0" styleClass="loginPanel" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EventViewController">
    <children>
-      <Label layoutX="244.0" layoutY="1.0" text="THE EVENT DETAILS">
+      <Label layoutX="244.0" layoutY="1.0" text="THE EVENT DETAILS" textFill="#607d8b">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="17.0" />
          </font></Label>
-      <Button fx:id="btnBack" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" onAction="#backToMainWindow" prefHeight="25.0" prefWidth="162.0" text="Back to Main Window" />
-      <GridPane layoutX="276.0" layoutY="66.0" prefHeight="168.0" prefWidth="275.0">
+      <Button fx:id="btnBack" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" onAction="#backToMainWindow" prefHeight="25.0" prefWidth="162.0" styleClass="btnBack" stylesheets="@style.css" text="Back to Main Window" />
+      <GridPane layoutX="322.0" layoutY="66.0" prefHeight="168.0" prefWidth="275.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="113.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="162.0" />
@@ -46,8 +46,8 @@
             <DatePicker fx:id="dtEventDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button layoutX="390.0" layoutY="240.0" mnemonicParsing="false" onAction="#addEventDetail" prefHeight="39.0" prefWidth="162.0" text="SAVE" />
-      <ImageView fx:id="imgVenue" fitHeight="128.0" fitWidth="200.0" layoutX="44.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="437.0" layoutY="259.0" mnemonicParsing="false" onAction="#addEventDetail" prefHeight="39.0" prefWidth="162.0" stylesheets="@style.css" text="SAVE" />
+      <ImageView fx:id="imgVenue" fitHeight="168.0" fitWidth="249.0" layoutX="44.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <Glow level="0.51">
                <input>
@@ -55,7 +55,8 @@
                </input>
             </Glow>
          </effect></ImageView>
-      <Button fx:id="btnUpload" layoutX="44.0" layoutY="203.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="25.0" prefWidth="122.0" text="upload image" />
-      <Line endX="468.0" layoutX="107.0" layoutY="33.0" startX="-100.0" />
+      <Button fx:id="btnUpload" layoutX="44.0" layoutY="238.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="25.0" prefWidth="222.0" stylesheets="@style.css" text="upload image" />
+      <Line endX="496.0" layoutX="111.0" layoutY="33.0" startX="-100.0" stroke="#607d8b" />
+      <Line endX="203.0" layoutX="395.0" layoutY="238.0" opacity="0.26" startX="-121.0" stroke="#607d8b" />
    </children>
 </AnchorPane>

@@ -44,12 +44,13 @@ class PostListViewController extends ListCell<Post> {
 
     public PostListViewController() {
         super();
+        gp.setHgap(10.0);
         gp.getColumnConstraints().add(new ColumnConstraints(100));
-        gp.getColumnConstraints().add(new ColumnConstraints(200));
+        gp.getColumnConstraints().add(new ColumnConstraints(150));
+        gp.getColumnConstraints().add(new ColumnConstraints(170));
         gp.getColumnConstraints().add(new ColumnConstraints(100));
-        gp.getColumnConstraints().add(new ColumnConstraints(100));
-        gp.getColumnConstraints().add(new ColumnConstraints(100));
-        gp.getColumnConstraints().add(new ColumnConstraints(60));
+        gp.getColumnConstraints().add(new ColumnConstraints(140));
+        gp.getColumnConstraints().add(new ColumnConstraints(120));
         gp.add(img,0,0);
         gp.setRowSpan(img,2);
         gp.add(lbPostID, 1, 0);
@@ -65,6 +66,9 @@ class PostListViewController extends ListCell<Post> {
         btnReply.setPrefWidth(50.0);
         gp.add(btnReply, 6, 0);
         gp.add(btnMore, 7, 0);
+        gp.getStyleClass().add("cell-root");
+        btnReply.getStyleClass().add("btn-det");
+        btnMore.getStyleClass().add("btn-det");
 
 
         btnReply.setOnAction(new EventHandler<ActionEvent>() {
@@ -105,29 +109,37 @@ class PostListViewController extends ListCell<Post> {
             lbStatus.setText(item.getStatus().toString());
             if (item instanceof Event) {
                 btnReply.setText("Join");
-                setStyle("-fx-background-color: #BDBDBD");
-                lbCol1.setText(((Event) item).getVenue());
-                lbCol2.setText(((Event) item).getDate().toString());
-                lbCol3.setText(String.valueOf(((Event) item).getCapacity()));
-                lbCol4.setText(String.valueOf(((Event) item).getAttendeeCount()));
+                setStyle("-fx-background-color: #FFFFE0;");
+                lbCol1.setText("VENUE: " + ((Event) item).getVenue());
+                lbCol2.setText("DATE: " + ((Event) item).getDate().toString());
+                lbCol3.setText("CAPACITY: " + String.valueOf(((Event) item).getCapacity()));
+                lbCol4.setText("ATTENDEE CNT: " + String.valueOf(((Event) item).getAttendeeCount()));
             } else if (item instanceof Sale) {
-                setStyle("-fx-background-color: #00BCD4");
-                lbCol1.setText(String.valueOf(((Sale) item).getHighestOffer()));
-                lbCol2.setText(String.valueOf(((Sale) item).getMinRaise()));
+                setStyle("-fx-background-color: #E0FFFF;");
+                lbCol1.setText("HIGHEST OFFER:  " + String.valueOf(((Sale) item).getHighestOffer()));
+                lbCol2.setText("MINIMUM RAISE:  " + String.valueOf(((Sale) item).getMinRaise()));
                 if(item.getCreatorID().compareTo(UniLinkGUI.loggedUserID) == 0)
-                        lbCol3.setText(String.valueOf(((Sale) item).getAskPrice()));
+                        lbCol3.setText("ASKING PRICE:  " + String.valueOf(((Sale) item).getAskPrice()));
+                else
+                    lbCol3.setText("");
+                lbCol4.setText("");
             } else {
-                setStyle("-fx-background-color: #757575");
-                lbCol1.setText(String.valueOf(((Job) item).getProposedPrice()));
-                lbCol2.setText(String.valueOf(((Job) item).getLowestOffer()));
+                setStyle("-fx-background-color: #FFF8DC;");
+                lbCol1.setText("PROPOSED PRICE:  " + String.valueOf(((Job) item).getProposedPrice()));
+                lbCol2.setText("LOWER PRICE:  " + String.valueOf(((Job) item).getLowestOffer()));
+                lbCol3.setText("");
+                lbCol4.setText("");
             }
 
-            if(item.getCreatorID().compareTo(UniLinkGUI.loggedUserID) != 0)
-                btnMore.setVisible(false);
+            if(item.getCreatorID().equals(UniLinkGUI.loggedUserID) == false)
+               btnMore.setVisible(false);
+            else
+                btnMore.setVisible(true);
 
-            if (item.getImage().compareTo("noimage") != 0) {
+            if (item.getImage().compareTo("noimage") != 0)
                 img.setImage(new Image("file:images/" + item.getImage() + ".png"));
-            }
+            else
+                img.setImage(new Image("file:images/noimage.png"));
 
             img.setFitHeight(40);
             img.setFitWidth(50);

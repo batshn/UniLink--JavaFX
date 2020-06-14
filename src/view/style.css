@@ -1,8 +1,8 @@
 
 
 * {
-dark-primary-color : #E64A19;
-default-primary-color: #FF5722;
+dark-primary-color : #2196F3;
+default-primary-color: #03A9F4;
 light-primary-color : #FFCCBC;
 text-primary-color  : #FFFFFF;
 accent-color : #00BCD4;
@@ -15,8 +15,10 @@ divider-color : #BDBDBD;
  -fx-background-color:default-primary-color;
 }
 
+
 .toolbar {
  -fx-background-color: dark-primary-color;
+ -fx-text-fill: text-primary-color;
 }
 
 .loginPanel{
@@ -26,6 +28,47 @@ divider-color : #BDBDBD;
 .txtLight {
     -fx-text-fill: text-primary-color;
 }
+
+.button {
+    -fx-background-color: linear-gradient(#2196F3, #536DFE);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill:text-primary-color;
+}
+
+.button:hover {
+    -fx-background-insets: -2, -0.3, 1, 2;
+}
+
+.label:hover {
+    -fx-background-insets: -1, -0.2, -0,5, 1;
+}
+
+
+.list-cell:selected > .cell-root{
+    -fx-background-color: #607D8B;
+}
+
+.btn-det {
+ -fx-opacity: 0.9;
+}
+
+.subRoot {
+    -fx-background-color: #FFFFFF;
+}
+
+.btnBack {
+    -fx-background-color: linear-gradient(#607D8B, #BDBDBD);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill:text-primary-color;
+}
+
+.btnBack:hover {
+    -fx-background-insets: -2, -0.3, 1, 2;
+}
+
+
 
 
 

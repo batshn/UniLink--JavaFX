@@ -31,5 +31,9 @@ public class Reply implements Serializable {
         return responderID;
     }
 
+    public void setUpdatePostID(String postID){
+        this.postID = postID;
+    }
+
 }
 

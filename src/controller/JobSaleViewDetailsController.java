@@ -2,6 +2,7 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +19,12 @@ import main.UniLinkGUI;
 import model.*;
 import model.asset.CheckInput;
 import model.exception.PostCloseException;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 public class JobSaleViewDetailsController {
@@ -66,8 +71,6 @@ public class JobSaleViewDetailsController {
             txtAskPrice.setEditable(false);
             txtMinRaise.setEditable(false);
             btnSave.setDisable(true);
-            btnClose.setDisable(true);
-//            btnDelete.setDisable(true);
             btnUpload.setDisable(true);
         }
 
@@ -114,13 +117,24 @@ public class JobSaleViewDetailsController {
 
     public void savePost(ActionEvent actionEvent) throws IOException {
         String val = "yes";
-        if ((updatePost instanceof Sale) && (CheckInput.isInt(txtMinRaise.getText()) != true))
-            val = "Minimum Raise";
+        if (updatePost instanceof Sale){
+            if(CheckInput.isInt(txtMinRaise.getText()) != true)
+                val = "Minimum Raise";
+            else if (Integer.parseInt(txtMinRaise.getText())<=0)
+                val = "Minimum Raise";
+        }
+
+
         if (CheckInput.isDouble(txtAskPrice.getText()) == false) {
             val = "Asking Price";
             if (updatePost instanceof Job)
                 val = "Proposed Price";
+        } else if (Double.parseDouble(txtAskPrice.getText())<=0) {
+            val = "Asking Price";
+            if (updatePost instanceof Job)
+                val = "Proposed Price";
         }
+
         if (txtDesc.getText().isBlank() == true)
             val = "Description";
         if (txtTitle.getText().isBlank() == true)
@@ -135,8 +149,13 @@ public class JobSaleViewDetailsController {
             } else
                 ((Job) updatePost).setProposedPrice(Double.parseDouble(txtAskPrice.getText()));
 
-            if (imagePost.getImage() != null)
+            if (imagePost.getImage() != null) {
                 updatePost.setImage(updatePost.getId());
+
+                BufferedImage postImg ;
+                postImg = SwingFXUtils.fromFXImage(imagePost.getImage(), null);
+                ImageIO.write(postImg, "png", new File(Paths.get("").toAbsolutePath().toString() + "\\images\\" + updatePost.getId() + ".png"));
+            }
             else
                 updatePost.setImage("noimage");
 
