@@ -1,4 +1,4 @@
-# UniLink--JavaFX
+# UniLink-JavaFX
 JavaFX, MVC structure and HSQLDB
 
 ![homepage](/images/Main.png)
